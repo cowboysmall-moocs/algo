@@ -32,11 +32,11 @@ def main(argv):
     for row in adjacency_list:
         graph_dict[row[0]] = row[1:]
 
-    for iteration in range(2):
+    for iteration in range(10):
         min = min_cut(copy.deepcopy(graph_dict))
         results = []
         results.append(min)
-        for count in range(10):
+        for count in range(20):
             current = min_cut(copy.deepcopy(graph_dict))
             results.append(current)
             if current < min:
