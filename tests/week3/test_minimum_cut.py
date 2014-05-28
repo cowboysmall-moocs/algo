@@ -14,7 +14,11 @@ class TestMinimumCut(unittest.TestCase):
         adjacency_list = [element.strip('\t\r\n').split('\t') for element in file.readlines()]
         file.close()
 
-        graph = Graph(adjacency_list)
+        graph_dict = {}
+        for row in adjacency_list:
+            graph_dict[row[0]] = row[1:]
+
+        graph = Graph(graph_dict)
         self.assertEqual(graph.adjacent_to('3'), ['48','123','134','109','41','17','159','49','136','16','130','141','29','176','2','190','66','153','157','70','114','65','173','104','194','54'])
 
 
