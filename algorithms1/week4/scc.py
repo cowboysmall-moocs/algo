@@ -1,95 +1,92 @@
 import sys
 
+N = 875714
 
-class DFS:
-
-    def __init__(self, directed_graph_dict):
-        self.directed_graph_dict = directed_graph_dict
-
-
-    def dfs(self):
-        self.dfs_node_count = len(self.directed_graph_dict)
-        self.dfs_explored   = {}
-        self.dfs_ordering   = []
-
-        for vertex in self.directed_graph_dict.keys():
-            if vertex not in self.dfs_explored or not self.dfs_explored[vertex]:
-                self._dfs_recursive(vertex)
-
-        self.dfs_ordering.reverse()
-        return self.dfs_ordering
+explored  = {}
+leaders   = {}
+finishing = {}
+stats     = {}
 
 
-    def _dfs_recursive(self, vertex):
-        self.dfs_explored[vertex] = True
-        for v in self.directed_graph_dict[vertex]:
-            if v not in self.dfs_explored or not self.dfs_explored[v]:
-                self._dfs_recursive(v)
-
-        self.dfs_ordering.append(vertex)
-
+def initialize():
+    for node in range(1, N + 1):
+        explored[node]  = False
+        leaders[node]   = 0
+        finishing[node] = 0
+        stats[node]     = 0
 
 
+def dfs_loop(graph):
+    global t
+    global s
 
-class SCC:
+    t = 0
+    s = 0
+    for node in reversed(range(1, N + 1)):
+        if not explored[node]:
+            s = node
+            dfs(graph, node)
 
-    def __init__(self, directed_graph_dict, ordering):
-        self.directed_graph_dict = directed_graph_dict
-        self.sccs                = {}
-        self.ordering            = ordering
-        self.dfs_explored        = {}
-        self.count               = 0
 
-    def scc(self):
-        for vertex in self.ordering:
-            if vertex not in self.dfs_explored or not self.dfs_explored[vertex]:
-                self._dfs_recursive(vertex)
-                self.count += 1
+def dfs(graph, vertex):
+    global t
 
-    def _dfs_recursive(self, vertex):
-        self.dfs_explored[vertex] = True
+    explored[vertex] = True
+    leaders[vertex]  = s
+    stats[s] += 1
+    for node in graph[vertex]:
+        if not explored[node]:
+            dfs(graph, node)
+    t = t + 1
+    finishing[vertex] = t
 
-        if self.count not in self.sccs:
-            self.sccs[self.count] = []
 
-        self.sccs[self.count].append(vertex)
+def relabel_graph(graph):
+    relabeled = {}
+    for node in range(1, N + 1):
+        temp = []
+        for x in graph[node]: 
+            temp.append(finishing[x])
+        relabeled[finishing[node]] = temp
+    return relabeled
 
-        for v in self.directed_graph_dict[vertex]:
-            if v not in self.dfs_explored or not self.dfs_explored[v]:
-                self._dfs_recursive(v)
 
-    def sccs(self):
-        return self.sccs
+def construct_graphs(file_path):
+    graph          = {}
+    reversed_graph = {}
 
-    def count(self):
-        return self.count
+    for i in range(1, N + 1):
+        graph[i]          = []
+        reversed_graph[i] = []
 
+    file = open(file_path)
+    for line in file:
+        tail = int(line.split()[0])
+        head = int(line.split()[1])
+        graph[tail].append(head)
+        reversed_graph[head].append(tail)
+    file.close()
+
+    return graph, reversed_graph
 
 
 def main(argv):
-    file = open(argv[0])
-    edge_list = [element.strip('\r\n').split(' ') for element in file.readlines()]
-    file.close()
+    sys.setrecursionlimit(N)
 
-    directed_graph_dict = {}
-    reversed_directed_graph_dict = {}
-    for row in edge_list:
-        tail = long(row[0])
-        head = long(row[1])
+    graph, reversed_graph = construct_graphs(argv[0])
 
-        if tail not in directed_graph_dict:
-            directed_graph_dict[tail] = []
-        directed_graph_dict[tail].append(head)
+    initialize()
+    dfs_loop(reversed_graph)
 
-        if head not in reversed_directed_graph_dict:
-            reversed_directed_graph_dict[head] = []
-        reversed_directed_graph_dict[head].append(tail)
+    new_graph = relabel_graph(graph)
 
-    sccs = SCC(directed_graph_dict, DFS(reversed_directed_graph_dict).dfs()).sccs()
-    print 'count of sccs -> ', len(sccs)
-    for scc in sccs:
-        print '          scc -> ', scc
+    initialize()
+    dfs_loop(new_graph)
 
+    sorted_stats = sorted(stats.values())
+    sorted_stats.reverse()
+
+    print '[%s]' % str(sorted_stats[0:5]).strip('[]')
 
 
 

@@ -11,19 +11,31 @@ class DFS:
         self.dfs_node_count = len(self.directed_graph_dict)
         self.dfs_explored   = {}
         self.dfs_ordering   = []
+        self.dfs_stack      = []
 
         for vertex in self.directed_graph_dict.keys():
-            if vertex not in self.dfs_explored or not self.dfs_explored[vertex]:
-                self._dfs_recursive(vertex)
+            if vertex not in self.dfs_explored:
+                # self._dfs_recursive(vertex)
+                self._dfs_iterative(vertex)
 
-        self.dfs_ordering.reverse()
         return self.dfs_ordering
+
+
+    def _dfs_iterative(self, vertex):
+        self.dfs_stack = [vertex]
+        while self.dfs_stack:
+            current = self.dfs_stack.pop(0)
+            if current not in self.dfs_explored:
+                self.dfs_explored[current] = True
+                if current in self.directed_graph_dict:
+                    self.dfs_stack = self.directed_graph_dict[current] + self.dfs_stack
+                self.dfs_ordering.append(current)
 
 
     def _dfs_recursive(self, vertex):
         self.dfs_explored[vertex] = True
         for v in self.directed_graph_dict[vertex]:
-            if v not in self.dfs_explored or not self.dfs_explored[v]:
+            if v not in self.dfs_explored:
                 self._dfs_recursive(v)
 
         self.dfs_ordering.append(vertex)
