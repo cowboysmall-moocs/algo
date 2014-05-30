@@ -2,18 +2,33 @@ import sys
 
 N = 875714
 
-explored  = {}
-leaders   = {}
-finishing = {}
-stats     = {}
+explored   = {}
+leaders    = {}
+finishing  = {}
+statistics = {}
 
 
-def initialize():
+def relabel_graph(graph):
+    relabeled_graph = {}
     for node in range(1, N + 1):
-        explored[node]  = False
-        leaders[node]   = 0
-        finishing[node] = 0
-        stats[node]     = 0
+        relabeled_heads = []
+        for head in graph[node]: 
+            relabeled_heads.append(finishing[head])
+        relabeled_graph[finishing[node]] = relabeled_heads
+    return relabeled_graph
+
+
+def dfs(graph, vertex):
+    global t
+
+    explored[vertex] = True
+    leaders[vertex]  = s
+    statistics[s] += 1
+    for node in graph[vertex]:
+        if not explored[node]:
+            dfs(graph, node)
+    t = t + 1
+    finishing[vertex] = t
 
 
 def dfs_loop(graph):
@@ -28,27 +43,12 @@ def dfs_loop(graph):
             dfs(graph, node)
 
 
-def dfs(graph, vertex):
-    global t
-
-    explored[vertex] = True
-    leaders[vertex]  = s
-    stats[s] += 1
-    for node in graph[vertex]:
-        if not explored[node]:
-            dfs(graph, node)
-    t = t + 1
-    finishing[vertex] = t
-
-
-def relabel_graph(graph):
-    relabeled = {}
+def initialize():
     for node in range(1, N + 1):
-        temp = []
-        for x in graph[node]: 
-            temp.append(finishing[x])
-        relabeled[finishing[node]] = temp
-    return relabeled
+        explored[node]   = False
+        leaders[node]    = 0
+        finishing[node]  = 0
+        statistics[node] = 0
 
 
 def construct_graphs(file_path):
@@ -78,15 +78,15 @@ def main(argv):
     initialize()
     dfs_loop(reversed_graph)
 
-    new_graph = relabel_graph(graph)
+    relabeled_graph = relabel_graph(graph)
 
     initialize()
-    dfs_loop(new_graph)
+    dfs_loop(relabeled_graph)
 
-    sorted_stats = sorted(stats.values())
+    sorted_stats = sorted(statistics.values())
     sorted_stats.reverse()
 
-    print '[%s]' % str(sorted_stats[0:5]).strip('[]')
+    print 'top 5 sccs: %s' % str(sorted_stats[0:5])
 
 
 
