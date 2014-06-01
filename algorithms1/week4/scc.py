@@ -1,54 +1,30 @@
 import sys
 
-N = 875714
+N = 0
 
-explored  = {}
-leaders   = {}
-finishing = {}
-stats     = {}
-
-
-def initialize():
-    for node in range(1, N + 1):
-        explored[node]  = False
-        leaders[node]   = 0
-        finishing[node] = 0
-        stats[node]     = 0
+explored   = {}
+leaders    = {}
+finishing  = {}
+statistics = {}
 
 
-def dfs_loop(graph):
-    global t
-    global s
+def scc(file_path, node_count):
+    global N
 
-    t = 0
-    s = 0
-    for node in reversed(range(1, N + 1)):
-        if not explored[node]:
-            s = node
-            dfs(graph, node)
+    N = node_count
+    sys.setrecursionlimit(node_count)
 
+    graph, reversed_graph = construct_graphs(file_path)
 
-def dfs(graph, vertex):
-    global t
+    initialize()
+    dfs_loop(reversed_graph)
 
-    explored[vertex] = True
-    leaders[vertex]  = s
-    stats[s] += 1
-    for node in graph[vertex]:
-        if not explored[node]:
-            dfs(graph, node)
-    t = t + 1
-    finishing[vertex] = t
+    relabeled_graph = relabel_graph(graph)
 
+    initialize()
+    dfs_loop(relabeled_graph)
 
-def relabel_graph(graph):
-    relabeled = {}
-    for node in range(1, N + 1):
-        temp = []
-        for x in graph[node]: 
-            temp.append(finishing[x])
-        relabeled[finishing[node]] = temp
-    return relabeled
+    return statistics
 
 
 def construct_graphs(file_path):
@@ -70,24 +46,56 @@ def construct_graphs(file_path):
     return graph, reversed_graph
 
 
+def initialize():
+    for node in range(1, N + 1):
+        explored[node]   = False
+        leaders[node]    = 0
+        finishing[node]  = 0
+        statistics[node] = 0
+
+
+def dfs_loop(graph):
+    global t
+    global s
+
+    t = 0
+    s = 0
+    for node in reversed(range(1, N + 1)):
+        if not explored[node]:
+            s = node
+            dfs(graph, node)
+
+
+def dfs(graph, vertex):
+    global t
+
+    explored[vertex] = True
+    leaders[vertex]  = s
+    statistics[s] += 1
+    for node in graph[vertex]:
+        if not explored[node]:
+            dfs(graph, node)
+    t = t + 1
+    finishing[vertex] = t
+
+
+def relabel_graph(graph):
+    relabeled_graph = {}
+    for node in range(1, N + 1):
+        relabeled_heads = []
+        for head in graph[node]: 
+            relabeled_heads.append(finishing[head])
+        relabeled_graph[finishing[node]] = relabeled_heads
+    return relabeled_graph
+
+
 def main(argv):
-    sys.setrecursionlimit(N)
-
-    graph, reversed_graph = construct_graphs(argv[0])
-
-    initialize()
-    dfs_loop(reversed_graph)
-
-    new_graph = relabel_graph(graph)
-
-    initialize()
-    dfs_loop(new_graph)
+    stats = scc(argv[0], 875714)
 
     sorted_stats = sorted(stats.values())
     sorted_stats.reverse()
 
-    print '%s' % str(sorted_stats[0:5])
-
+    print 'top 5 sccs: %s' % str(sorted_stats[0:5])
 
 
 if __name__ == "__main__":
