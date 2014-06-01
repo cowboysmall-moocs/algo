@@ -15,19 +15,19 @@ class DFS:
 
         for vertex in self.directed_graph_dict.keys():
             if vertex not in self.dfs_explored:
-                self._dfs_recursive(vertex)
-                # self._dfs_iterative(vertex)
+                # self._dfs_recursive(vertex)
+                self._dfs_iterative(vertex)
         return self.dfs_ordering
 
 
     def _dfs_iterative(self, vertex):
         self.dfs_stack = [vertex]
         while self.dfs_stack:
-            current = self.dfs_stack.pop(0)
+            current = self.dfs_stack.pop()
             if current not in self.dfs_explored:
                 self.dfs_explored[current] = True
                 if current in self.directed_graph_dict:
-                    self.dfs_stack = self.directed_graph_dict[current] + self.dfs_stack
+                    self.dfs_stack += reversed(self.directed_graph_dict[current])
                 self.dfs_ordering.append(current)
 
 
