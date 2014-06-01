@@ -86,7 +86,7 @@ def main(argv):
     sorted_stats = sorted(stats.values())
     sorted_stats.reverse()
 
-    print '[%s]' % str(sorted_stats[0:5]).strip('[]')
+    print '%s' % str(sorted_stats[0:5])
 
 
 

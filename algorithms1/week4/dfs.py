@@ -15,9 +15,8 @@ class DFS:
 
         for vertex in self.directed_graph_dict.keys():
             if vertex not in self.dfs_explored:
-                # self._dfs_recursive(vertex)
-                self._dfs_iterative(vertex)
-
+                self._dfs_recursive(vertex)
+                # self._dfs_iterative(vertex)
         return self.dfs_ordering
 
 
@@ -34,9 +33,9 @@ class DFS:
 
     def _dfs_recursive(self, vertex):
         self.dfs_explored[vertex] = True
-        for v in self.directed_graph_dict[vertex]:
-            if v not in self.dfs_explored:
-                self._dfs_recursive(v)
-
         self.dfs_ordering.append(vertex)
+        for current in self.directed_graph_dict[vertex]:
+            if current not in self.dfs_explored:
+                self._dfs_recursive(current)
+
 
