@@ -35,13 +35,13 @@ def construct_graphs(file_path):
         graph[i]          = []
         reversed_graph[i] = []
 
-    file = open(file_path)
-    for line in file:
-        tail = int(line.split()[0])
-        head = int(line.split()[1])
-        graph[tail].append(head)
-        reversed_graph[head].append(tail)
-    file.close()
+    with open(file_path) as file:
+        for line in file:
+            split = line.split()
+            tail  = int(split[0])
+            head  = int(split[1])
+            graph[tail].append(head)
+            reversed_graph[head].append(tail)
 
     return graph, reversed_graph
 
