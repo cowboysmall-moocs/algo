@@ -5,8 +5,6 @@ import heapq
 def construct_stream(file_path):
     with open(file_path) as file:
         return [int(line) for line in file]
-        # lines = file.readLines()
-    # return [int(line) for line in lines]
 
 
 def median_maintenance(stream):
