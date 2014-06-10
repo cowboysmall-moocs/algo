@@ -13,9 +13,9 @@ def two_sum(hash_table):
     counter = 0
     hash_keys  = hash_table.keys()
     for val in range(-10000, 10001):
-        for number in hash_keys:
-            target = val - number
-            if target != number and target in hash_table:
+        for key in hash_keys:
+            target = val - key
+            if target != key and target in hash_table:
                 counter += 1
                 sys.stdout.write('Found T = %6d [running total = %6d]\r' % (val, counter))
                 sys.stdout.flush()
