@@ -1,7 +1,7 @@
 import unittest
 import os.path
 
-from algorithms1.week5.dijkstra import construct_graph, dijkstra_shortest_paths
+from week5.dijkstra import construct_graph, dijkstra_shortest_paths
 
 
 FILE_1 = os.path.join(os.path.dirname(__file__), '../data/dijkstra_data.txt')

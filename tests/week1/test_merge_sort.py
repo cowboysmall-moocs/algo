@@ -2,7 +2,7 @@ import unittest
 import os.path
 import random
 
-from algorithms1.week1.merge_sort import MergeSort
+from week1.merge_sort import MergeSort
 
 FILE_1 = os.path.join(os.path.dirname(__file__), '../data/integer_array_1.txt')
 FILE_2 = os.path.join(os.path.dirname(__file__), '../data/integer_array_2.txt')

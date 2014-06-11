@@ -1,7 +1,7 @@
 import unittest
 import os.path
 
-from algorithms1.week4.dfs import DFS
+from week4.dfs import DFS
 
 
 # FILE_1 = os.path.join(os.path.dirname(__file__), '../data/scc.txt')

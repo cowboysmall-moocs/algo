@@ -4,30 +4,30 @@
 import os
 import sys
 
+from setuptools import setup, find_packages
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
 
-if sys.argv[-1] == 'publish':
-    os.system('python setup.py sdist upload')
-    sys.exit()
+requirements = [
+]
 
+test_requirements = [
+]
 
 setup(
     name='algorithms1',
     version='0.1.0',
-    description='Algorithms Design and Analysis Part 1 contains all programming exercises for the Coursera course',
+    packages=find_packages('src', exclude=["*.tests''", "*.tests.*", "tests.*", "tests"]),
+    package_dir={'':'src'},
+    include_package_data=False,
+    install_requires=requirements,
+
     author='Jerry Kiely',
     author_email='jerry@cowboysmall.com',
-    url='https://github.com/cowboysmall/algorithms1',
-    packages=['algorithms1',],
-    package_dir={'algorithms1': 'algorithms1'},
-    include_package_data=True,
-    install_requires=[],
-    zip_safe=False,
+    description='Algorithms Design and Analysis Part 1 contains all programming exercises for the Coursera course',
     keywords='algorithms1',
+    url='https://github.com/cowboysmall/algorithms1',
+
+    zip_safe=False,
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -38,5 +38,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
     ],
+
     test_suite='tests',
+    tests_require=test_requirements
 )

@@ -1,7 +1,7 @@
 import unittest
 import os.path
 
-from algorithms1.week3.graph import Graph
+from week3.graph import Graph
 
 
 FILE_1 = os.path.join(os.path.dirname(__file__), '../data/karger_min_cut.txt')

@@ -2,6 +2,7 @@ import sys
 import copy
 import random
 
+
 class Graph:
 
     def __init__(self, graph_dict):

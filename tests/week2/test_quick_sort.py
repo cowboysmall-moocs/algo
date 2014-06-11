@@ -1,7 +1,7 @@
 import unittest
 import os.path
 
-from algorithms1.week2.quick_sort import QuickSort, QuickSortPivotLast, QuickSortPivotMOT
+from week2.quick_sort import QuickSort, QuickSortPivotLast, QuickSortPivotMOT
 
 FILE_1 = os.path.join(os.path.dirname(__file__), '../data/unsorted_list.txt')
 FILE_2 = os.path.join(os.path.dirname(__file__), '../data/unsorted_list_10.txt')
