@@ -45,7 +45,6 @@ def main(argv):
         print 'Iteration:   ', iteration + 1
         print 'Results :    ', results
         print 'Minimum Cut: ', min
-        print
 
 
 if __name__ == "__main__":
