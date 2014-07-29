@@ -2,49 +2,50 @@ import sys
 import copy
 import random
 
+from collections import defaultdict
 
-def min_cut(graph_dict):
-    while len(graph_dict) > 2:
-        edge1 = random.choice(graph_dict.keys())
-        edge2 = random.choice(graph_dict[edge1])
 
-        graph_dict[edge1].extend(graph_dict[edge2])
+def construct_graph(file_path):
+    graph = defaultdict(list)
+    with open(file_path) as file:
+        for line in file:
+            elements = line.split()
+            graph[elements[0]].extend(elements[1:])
+    return graph
 
-        for vertex in graph_dict[edge2]:
-            for i in range(len(graph_dict[vertex])):
-                if graph_dict[vertex][i] == edge2:
-                    graph_dict[vertex][i] = edge1
 
-        while edge1 in graph_dict[edge1]:
-            graph_dict[edge1].remove(edge1)
+def min_cut(graph):
+    while len(graph) > 2:
+        v1 = random.choice(graph.keys())
+        v2 = random.choice(graph[v1])
 
-        del graph_dict[edge2]
+        graph[v1].extend(graph[v2])
 
-    return len(graph_dict[graph_dict.keys()[0]])
+        for vertex in graph[v2]:
+            if v2 in graph[vertex]:
+                graph[vertex].remove(v2)
+                graph[vertex].append(v1)
+
+        while v1 in graph[v1]:
+            graph[v1].remove(v1)
+        del graph[v2]
+
+    return min([len(values) for values in graph.values()])
 
 
 def main(argv):
-    file = open(argv[0])
-    adjacency_list = [element.strip('\t\r\n').split('\t') for element in file.readlines()]
-    file.close()
-
-    graph_dict = {}
-    for row in adjacency_list:
-        graph_dict[row[0]] = row[1:]
+    graph = construct_graph(argv[0])
 
     for iteration in range(10):
-        min = min_cut(copy.deepcopy(graph_dict))
         results = []
-        results.append(min)
         for count in range(20):
-            current = min_cut(copy.deepcopy(graph_dict))
-            results.append(current)
-            if current < min:
-                min = current
+            results.append(min_cut(copy.deepcopy(graph)))
 
+        print
         print 'Iteration:   ', iteration + 1
         print 'Results :    ', results
-        print 'Minimum Cut: ', min
+        print 'Minimum Cut: ', min(results)
+        print
 
 
 if __name__ == "__main__":
