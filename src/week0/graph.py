@@ -1,5 +1,4 @@
 import sys
-import copy
 import random
 
 
@@ -17,7 +16,7 @@ class Graph:
             for neighbour in self.graph_dict[vertex]:
                 if (neighbour, vertex) not in edges:
                     edges.append((vertex, neighbour))
-        return edges
+        return sorted(edges)
 
     def adjacent_to(self, vertex):
         return self.graph_dict[vertex]

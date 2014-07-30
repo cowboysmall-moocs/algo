@@ -1,10 +1,7 @@
 import unittest
 import os.path
 
-from week4.dfs import DFS
-
-
-# FILE_1 = os.path.join(os.path.dirname(__file__), '../data/scc.txt')
+from week0.dfs import DFS
 
 
 class TestDepthFirstSearch(unittest.TestCase):
