@@ -42,8 +42,8 @@ def main(argv):
             results.append(min_cut(copy.deepcopy(graph)))
 
         print
-        print 'Iteration:   ', iteration + 1
-        print 'Results :    ', results
+        print '  Iteration: ', iteration + 1
+        print '    Results: ', results
         print 'Minimum Cut: ', min(results)
         print
 
