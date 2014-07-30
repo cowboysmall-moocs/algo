@@ -1,29 +1,33 @@
 import sys
 
+from bisect import bisect_left, bisect_right
+
 
 def construct_array(file_path):
     with open(file_path) as file:
-        return [int(line) for line in file]
+        return sorted([int(line) for line in file])
 
 
 def two_sum(array):
-    array    = sorted(array)
-    elements = []
+    two_sums = set()
 
-    for index in range(len(array)):
-        values = [element for element in array if (-10000 - array[index]) <= element <= (10000 - array[index])]
-        elements.extend(values)
-        sys.stdout.write('Found: %7d, Current: %7d [Index = %7d]\r' % (len(values), array[index], index))
-        sys.stdout.flush()
+    for x in array:
+        start = bisect_left(array, -10000 - x)
+        end   = bisect_right(array, 10000 - x)
+        while start < end:
+            two_sums.add(x + array[start])
+            start += 1
 
-    return len(set(elements))
+    return len(two_sums)
 
 
 def main(argv):
     array = construct_array(argv[0])
     count = two_sum(array)
 
-    print '\n\nNumber of Ts with distinct solutions: %8d' % (count)
+    print
+    print 'Number of Ts with distinct solutions: %8d' % (count)
+    print
 
 
 if __name__ == "__main__":
