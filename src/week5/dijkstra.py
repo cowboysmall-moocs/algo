@@ -30,7 +30,7 @@ def dijkstra_search(graph, edge):
 
 
 def dijkstra_shortest_paths(start, graph):
-    for i in range(1, len(graph) + 1):
+    for i in xrange(1, len(graph) + 1):
         distances[i] = 1000000
     distances[start] = 0
     heapq.heappush(heap, (0, start))

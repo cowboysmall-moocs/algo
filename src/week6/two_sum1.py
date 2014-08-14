@@ -12,7 +12,7 @@ def construct_hash_table(file_path):
 def two_sum(hash_table):
     counter   = 0
     hash_keys = hash_table.keys()
-    for val in range(-10000, 10001):
+    for val in xrange(-10000, 10001):
         for key in hash_keys:
             target = val - key
             if target != key and target in hash_table:

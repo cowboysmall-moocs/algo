@@ -20,7 +20,7 @@ class QuickSort:
         self.comparisons += (end - start - 1)
         self.pivot(array, start, end - 1)
         counter = start + 1;
-        for index in range(start + 1, end):
+        for index in xrange(start + 1, end):
             if array[index] < array[start]:
                 self.swap_elements(array, index, counter)
                 counter += 1

@@ -36,9 +36,9 @@ def min_cut(graph):
 def main(argv):
     graph = construct_graph(argv[0])
 
-    for iteration in range(10):
+    for iteration in xrange(10):
         results = []
-        for count in range(20):
+        for count in xrange(20):
             results.append(min_cut(copy.deepcopy(graph)))
 
         print
