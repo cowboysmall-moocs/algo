@@ -10,6 +10,7 @@ statistics = defaultdict(int)
 
 
 def construct_graphs(file_path):
+    vertices       = []
     graph          = defaultdict(list)
     reversed_graph = defaultdict(list)
 
@@ -20,8 +21,9 @@ def construct_graphs(file_path):
             head  = int(split[1])
             graph[tail].append(head)
             reversed_graph[head].append(tail)
+            vertices.extend([tail, head])
 
-    return graph, reversed_graph
+    return graph, reversed_graph, vertices
 
 
 def reinitialize():
@@ -43,9 +45,10 @@ def dfs_loop(graph, vertex):
     leaders[vertex]  = s
     statistics[s]   += 1
 
-    for node in graph[vertex]:
-        if not explored[node]:
-            dfs_loop(graph, node)
+    if vertex in graph:
+        for node in graph[vertex]:
+            if not explored[node]:
+                dfs_loop(graph, node)
 
     t = t + 1
     finishing[vertex] = t
@@ -86,9 +89,9 @@ def scc(graph, reversed_graph, node_count):
 
 
 def main(argv):
-    graph, reversed_graph = construct_graphs(argv[0])
+    graph, reversed_graph, vertices = construct_graphs(argv[0])
 
-    node_count = max(graph)
+    node_count = len(vertices)
     sys.setrecursionlimit(1048576)
 
     scc(graph, reversed_graph, node_count)

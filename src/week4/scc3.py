@@ -8,46 +8,52 @@ index      = {}
 lowlink    = {}
 components = defaultdict(list)
 
+counter    = 0
 
 def construct(file_path):
-    graph = defaultdict(list)
+    vertices = []
+    graph    = defaultdict(list)
 
     with open(file_path) as file:
         for line in file:
             item = line.split()
-            graph[int(item[0])].append(int(item[1]))
+            tail = int(item[0])
+            head = int(item[1])
+            graph[tail].append(head)
+            vertices.extend([tail, head])
 
-    return graph
+    return graph, vertices
 
 
+def scc(v, graph):
+    global counter
 
-def scc(v, graph, i):
-    index[v]   = i
-    lowlink[v] = i
+    index[v]   = counter
+    lowlink[v] = counter
+    counter   += 1
 
     stack.append(v)
 
     for w in graph[v]:
         if w not in index:
-            scc(w, graph, i + 1)
+            scc(w, graph)
             lowlink[v] = min(lowlink[v], lowlink[w])
         elif w in stack:
             lowlink[v] = min(lowlink[v], index[w])
 
     if lowlink[v] == index[v]:
-        # while v not in components[v]:
         while v in stack:
             components[v].append(stack.pop())
 
 
 def main(argv):
-    graph = construct(argv[0])
+    graph, vertices = construct(argv[0])
 
     sys.setrecursionlimit(1048576)
 
-    for v in graph.keys():
+    for v in vertices:
         if v not in index:
-            scc(v, graph, 0)
+            scc(v, graph)
 
     stats = sorted([len(values) for values in components.values()], reverse = True)
 
