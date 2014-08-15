@@ -4,18 +4,17 @@ from collections import defaultdict
 
 
 explored   = defaultdict(bool)
-finishing  = defaultdict(int)
+identifier = defaultdict(int)
 components = defaultdict(list)
+stack      = []
 
-time = 0
-s    = None
-
+count = 0
 
 
 def construct_graphs(file_path):
+    vertices  = []
     graph     = defaultdict(list)
     graph_rev = defaultdict(list)
-    vertices  = []
 
     with open(file_path) as file:
         for line in file:
@@ -36,73 +35,56 @@ def construct_graphs(file_path):
 def reinitialize():
     global explored
 
-    explored = defaultdict(bool)
+    explored   = defaultdict(bool)
 
 
 
-def dfs_second(graph, vertex):
-    global s
+def dfs(graph, vertex):
+    explored[vertex]   = True
+    identifier[vertex] = count
 
-    explored[vertex] = True
-    components[s].append(vertex)
-
-    for node in graph[vertex]:
-        if not explored[node]:
-            dfs_second(graph, node)
-
-
-def dfs_loop_second(graph, vertices):
-    global s
-
-    for node in sorted(vertices, reverse = True):
-        if not explored[node]:
-            s = node
-            dfs_second(graph, node)
-
-
-
-def dfs_first(graph, vertex):
-    global time
-
-    explored[vertex] = True
+    components[count].append(vertex)
 
     for node in graph[vertex]:
         if not explored[node]:
-            dfs_first(graph, node)
-
-    time += 1
-    finishing[vertex] = time
+            dfs(graph, node)
 
 
-def dfs_loop_first(graph, vertices):
-    for node in sorted(vertices, reverse = True):
+def dfs_loop(graph, vertices):
+    global count
+
+    for node in reversed(vertices):
         if not explored[node]:
-            dfs_first(graph, node)
+            dfs(graph, node)
+            count += 1
 
 
 
-def relabel_graph(graph):
-    graph_rel    = defaultdict(list)
-    vertices_rel = []
 
-    for node in graph:
-        vertices_rel.append(finishing[node])
-        for head in graph[node]:
-            graph_rel[finishing[node]].append(finishing[head])
-            if finishing[head] not in vertices_rel:
-                vertices_rel.append(finishing[head])
+def dfs_order(graph, vertex):
+    explored[vertex] = True
 
-    return graph_rel, vertices_rel
+    for node in graph[vertex]:
+        if not explored[node]:
+            dfs_order(graph, node)
+
+    stack.append(vertex)
+
+
+def dfs_loop_order(graph, vertices):
+    for node in sorted(graph.keys()):
+        if not explored[node]:
+            dfs_order(graph, node)
+
 
 
 
 def scc(graph, graph_rev, vertices):
-    dfs_loop_first(graph_rev, vertices)
-
-    graph_rel, vertices_rel = relabel_graph(graph)
+    dfs_loop_order(graph_rev, vertices)
 
     reinitialize()
-    dfs_loop_second(graph_rel, vertices_rel)
+    dfs_loop(graph, stack)
+
 
 
 
