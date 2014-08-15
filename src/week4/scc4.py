@@ -40,7 +40,6 @@ def scc(graph, v):
     if lowlink[v] == index[v]:
         position       = stack.index(v)
         statistics[v] += len(stack[position:])
-        print 'SCC found: ', stack[position:]
         del stack[position:]
 
 
