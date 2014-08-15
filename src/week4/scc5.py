@@ -92,7 +92,8 @@ def main(argv):
     stats = sorted([len(values) for values in components.values()], reverse = True)
 
     print
-    print 'Top 5 SCCs: %s' % str(stats[0:5])
+    print 'Number of SCCs: %s' % len(stats)
+    print '    Top 5 SCCs: %s' % str(stats[0:5])
     print
 
 

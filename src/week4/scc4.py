@@ -52,7 +52,8 @@ def main(argv):
             scc(graph, v)
 
     print
-    print 'Top 5 SCCs: %s' % str(sorted(statistics.values(), reverse = True)[0:5])
+    print 'Number of SCCs: %s' % len(statistics)
+    print '    Top 5 SCCs: %s' % str(sorted(statistics.values(), reverse = True)[0:5])
     print
 
 
