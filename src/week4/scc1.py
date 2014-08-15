@@ -15,7 +15,7 @@ s    = None
 def construct_graphs(file_path):
     graph     = defaultdict(list)
     graph_rev = defaultdict(list)
-    vertices  = []
+    vertices  = set()
 
     with open(file_path) as file:
         for line in file:
@@ -24,10 +24,7 @@ def construct_graphs(file_path):
             head  = int(split[1])
             graph[tail].append(head)
             graph_rev[head].append(tail)
-            if tail not in vertices:
-                vertices.append(tail)
-            if head not in vertices:
-                vertices.append(head)
+            vertices |= {tail, head}
 
     return graph, graph_rev, vertices
 
@@ -83,14 +80,13 @@ def dfs_loop_first(graph, vertices):
 
 def relabel_graph(graph):
     graph_rel    = defaultdict(list)
-    vertices_rel = []
+    vertices_rel = set()
 
     for node in graph:
-        vertices_rel.append(finishing[node])
+        vertices_rel.add(finishing[node])
         for head in graph[node]:
             graph_rel[finishing[node]].append(finishing[head])
-            if finishing[head] not in vertices_rel:
-                vertices_rel.append(finishing[head])
+            vertices_rel.add(finishing[head])
 
     return graph_rel, vertices_rel
 

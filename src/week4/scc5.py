@@ -12,7 +12,6 @@ count = 0
 
 
 def construct_graphs(file_path):
-    vertices  = []
     graph     = defaultdict(list)
     graph_rev = defaultdict(list)
 
@@ -23,12 +22,8 @@ def construct_graphs(file_path):
             head  = int(split[1])
             graph[tail].append(head)
             graph_rev[head].append(tail)
-            if tail not in vertices:
-                vertices.append(tail)
-            if head not in vertices:
-                vertices.append(head)
 
-    return graph, graph_rev, vertices
+    return graph, graph_rev
 
 
 
@@ -50,10 +45,10 @@ def dfs(graph, vertex):
             dfs(graph, node)
 
 
-def dfs_loop(graph, vertices):
+def dfs_loop(graph):
     global count
 
-    for node in reversed(vertices):
+    for node in reversed(stack):
         if not explored[node]:
             dfs(graph, node)
             count += 1
@@ -71,7 +66,7 @@ def dfs_order(graph, vertex):
     stack.append(vertex)
 
 
-def dfs_loop_order(graph, vertices):
+def dfs_loop_order(graph):
     for node in sorted(graph.keys()):
         if not explored[node]:
             dfs_order(graph, node)
@@ -79,11 +74,11 @@ def dfs_loop_order(graph, vertices):
 
 
 
-def scc(graph, graph_rev, vertices):
-    dfs_loop_order(graph_rev, vertices)
+def scc(graph, graph_rev):
+    dfs_loop_order(graph_rev)
 
     reinitialize()
-    dfs_loop(graph, stack)
+    dfs_loop(graph)
 
 
 
@@ -91,8 +86,8 @@ def scc(graph, graph_rev, vertices):
 def main(argv):
     sys.setrecursionlimit(1048576)
 
-    graph, graph_rev, vertices = construct_graphs(argv[0])
-    scc(graph, graph_rev, vertices)
+    graph, graph_rev = construct_graphs(argv[0])
+    scc(graph, graph_rev)
 
     stats = sorted([len(values) for values in components.values()], reverse = True)
 
