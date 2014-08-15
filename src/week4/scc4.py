@@ -38,9 +38,10 @@ def scc(graph, v):
             lowlink[v] = min(lowlink[v], index[w])
 
     if lowlink[v] == index[v]:
-        while v in stack:
-            statistics[v] += 1
-            stack.pop()
+        position       = stack.index(v)
+        statistics[v] += len(stack[position:])
+        print 'SCC found: ', stack[position:]
+        del stack[position:]
 
 
 def main(argv):

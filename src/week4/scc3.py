@@ -38,8 +38,9 @@ def scc(graph, v):
             lowlink[v] = min(lowlink[v], index[w])
 
     if lowlink[v] == index[v]:
-        while v in stack:
-            components[v].append(stack.pop())
+        position = stack.index(v)
+        components[v].extend(stack[position:])
+        del stack[position:]
 
 
 def main(argv):
