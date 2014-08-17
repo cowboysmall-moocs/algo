@@ -1,0 +1,36 @@
+
+
+[ jerry@gargantua algorithms1 ] $ time python src/week4/scc2.py tests/data/SCC.txt 
+
+Number of SCCs: 371762
+    Top 5 SCCs: [434821, 968, 459, 313, 211]
+
+
+real    0m15.143s
+user    0m14.951s
+sys     0m0.205s
+
+
+
+[ jerry@gargantua algorithms1 ] $ time python src/week4/scc4.py tests/data/SCC.txt 
+
+Number of SCCs: 371762
+    Top 5 SCCs: [434821, 968, 459, 313, 211]
+
+
+real    280m28.420s
+user    280m23.135s
+sys     0m13.176s
+
+
+
+[ jerry@gargantua algorithms1 ] $ time python src/week4/scc6.py tests/data/SCC.txt 
+
+Number of SCCs: 371762
+    Top 5 SCCs: [434821, 968, 459, 313, 211]
+
+
+real    0m11.504s
+user    0m11.338s
+sys     0m0.175s
+
