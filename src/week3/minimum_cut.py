@@ -7,10 +7,12 @@ from collections import defaultdict
 
 def construct_graph(file_path):
     graph = defaultdict(list)
+
     with open(file_path) as file:
         for line in file:
             elements = line.split()
             graph[elements[0]].extend(elements[1:])
+
     return graph
 
 
