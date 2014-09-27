@@ -1,12 +1,14 @@
 import sys
 import heapq
 
+
 heap      = []
 distances = {}
 
 
 def construct_graph(file_path):
     graph = {}
+
     with open(file_path) as file:
         for line in file:
             elements    = line.split()
@@ -15,11 +17,13 @@ def construct_graph(file_path):
             for heads in elements[1:]:
                 values = heads.split(',')
                 graph[tail].append((int(values[1]), int(values[0])))
+
     return graph
 
 
 def dijkstra_search(graph, edge):
     tail = edge[1]
+
     for weight, head in graph[tail]:
         if distances[head] > distances[tail] + weight:
             distances[head] = distances[tail] + weight
@@ -32,10 +36,13 @@ def dijkstra_search(graph, edge):
 def dijkstra_shortest_paths(start, graph):
     for i in xrange(1, len(graph) + 1):
         distances[i] = 1000000
+
     distances[start] = 0
     heapq.heappush(heap, (0, start))
+
     while len(heap) != 0:
         dijkstra_search(graph, heapq.heappop(heap))
+
     return distances
 
 

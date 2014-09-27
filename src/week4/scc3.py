@@ -3,12 +3,13 @@ import sys
 from collections import defaultdict
 
 
+components = defaultdict(list)
+
 stack      = []
 index      = {}
 lowlink    = {}
-components = defaultdict(list)
-
 counter    = 0
+
 
 def construct(file_path):
     graph = defaultdict(list)

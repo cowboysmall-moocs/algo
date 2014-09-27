@@ -7,9 +7,8 @@ explored   = defaultdict(bool)
 finishing  = defaultdict(int)
 components = defaultdict(list)
 
-time = 0
-s    = None
-
+time       = 0
+s          = None
 
 
 def construct_graphs(file_path):
@@ -29,12 +28,10 @@ def construct_graphs(file_path):
     return graph, graph_rev, vertices
 
 
-
 def reinitialize():
     global explored
 
     explored = defaultdict(bool)
-
 
 
 def dfs_second(graph, vertex):
@@ -57,7 +54,6 @@ def dfs_loop_second(graph, vertices):
             dfs_second(graph, node)
 
 
-
 def dfs_first(graph, vertex):
     global time
 
@@ -77,7 +73,6 @@ def dfs_loop_first(graph, vertices):
             dfs_first(graph, node)
 
 
-
 def relabel_graph(graph):
     graph_rel    = defaultdict(list)
     vertices_rel = set()
@@ -91,7 +86,6 @@ def relabel_graph(graph):
     return graph_rel, vertices_rel
 
 
-
 def scc(graph, graph_rev, vertices):
     dfs_loop_first(graph_rev, vertices)
 
@@ -99,7 +93,6 @@ def scc(graph, graph_rev, vertices):
 
     reinitialize()
     dfs_loop_second(graph_rel, vertices_rel)
-
 
 
 def main(argv):
@@ -114,7 +107,6 @@ def main(argv):
     print 'Number of SCCs: %s' % len(stats)
     print '    Top 5 SCCs: %s' % str(stats[0:5])
     print
-
 
 
 if __name__ == "__main__":

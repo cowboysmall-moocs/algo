@@ -6,9 +6,9 @@ from collections import defaultdict
 explored   = defaultdict(bool)
 identifier = defaultdict(int)
 statistics = defaultdict(int)
-stack      = []
 
-count = 0
+stack      = []
+count      = 0
 
 
 def construct_graphs(file_path):
@@ -26,12 +26,10 @@ def construct_graphs(file_path):
     return graph, graph_rev
 
 
-
 def reinitialize():
     global explored
 
     explored   = defaultdict(bool)
-
 
 
 def dfs(graph, vertex):
@@ -54,8 +52,6 @@ def dfs_loop(graph):
             count += 1
 
 
-
-
 def dfs_order(graph, vertex):
     explored[vertex] = True
 
@@ -72,15 +68,11 @@ def dfs_loop_order(graph):
             dfs_order(graph, node)
 
 
-
-
 def scc(graph, graph_rev):
     dfs_loop_order(graph_rev)
 
     reinitialize()
     dfs_loop(graph)
-
-
 
 
 def main(argv):
@@ -93,7 +85,6 @@ def main(argv):
     print 'Number of SCCs: %s' % len(statistics)
     print '    Top 5 SCCs: %s' % str(sorted(statistics.values(), reverse = True)[0:5])
     print
-
 
 
 if __name__ == "__main__":

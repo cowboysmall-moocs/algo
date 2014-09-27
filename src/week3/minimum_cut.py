@@ -7,10 +7,12 @@ from collections import defaultdict
 
 def construct_graph(file_path):
     graph = defaultdict(list)
+
     with open(file_path) as file:
         for line in file:
             elements = line.split()
             graph[elements[0]].extend(elements[1:])
+
     return graph
 
 
@@ -28,6 +30,7 @@ def min_cut(graph):
 
         while v1 in graph[v1]:
             graph[v1].remove(v1)
+
         del graph[v2]
 
     return min([len(values) for values in graph.values()])

@@ -56,7 +56,6 @@ class QuickSortPivotMOT(QuickSort):
             return
 
 
-
 def main(argv):
     file = open(argv[0])
     unsorted_list = [int(element) for element in file.readlines()]

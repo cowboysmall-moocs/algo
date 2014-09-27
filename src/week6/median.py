@@ -10,6 +10,7 @@ def construct_stream(file_path):
 def median_maintenance(stream):
     total = 0
     upper, lower = [], []
+
     for integer in stream:
         if not lower or integer < -lower[0]:
             heapq.heappush(lower, -integer)
@@ -26,6 +27,7 @@ def median_maintenance(stream):
             total += upper[0]
         else:
             total += -lower[0]
+
     return total
 
 

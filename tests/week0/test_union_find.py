@@ -1,6 +1,6 @@
 import unittest
 
-from union_find import QuickFind, WeightedQuickUnion
+from week0.union_find import QuickFind, WeightedQuickUnion
 
 class TestUnionFind(unittest.TestCase):
 
@@ -44,8 +44,6 @@ class TestUnionFind(unittest.TestCase):
         find.union(8, 0)
 
         self.assertEqual(find.get_array(), [0, 2, 2, 2, 4, 0, 2, 7, 0, 0])
-
-
 
 
     def test_fourth_case(self):

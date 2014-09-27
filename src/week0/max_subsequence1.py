@@ -1,5 +1,6 @@
 import sys
 
+
 def construct_array(file_path):
     with open(file_path) as file:
         return sorted([int(line) for line in file])
@@ -23,6 +24,7 @@ def main(argv):
     print
     print 'Maximum Subsequence: %8d' % (size)
     print
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
