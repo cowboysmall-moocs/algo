@@ -8,7 +8,7 @@ def main(argv):
     markers = [True] * (maximum + 1)
     for i in xrange(2, int(math.sqrt(maximum)) + 1):
         if markers[i]:
-            for j in range(i ** 2, maximum + 1, i):
+            for j in xrange(i ** 2, maximum + 1, i):
                 markers[j] = False
 
     primes  = [p for p in xrange(2, maximum + 1) if markers[p]]
@@ -16,10 +16,10 @@ def main(argv):
 
 
     print
-    print'    Total primes between 2 and %s: %s' % (maximum, count)
-    print'Total composites between 2 and %s: %s' % (maximum, maximum - 1 - count)
-    # print
-    # print', '.join([str(p) for p in primes])
+    print '    Total primes between 2 and %s: %s' % (maximum, count)
+    print 'Total composites between 2 and %s: %s' % (maximum, maximum - 1 - count)
+    print
+    print '\n'.join([', '.join(['%4s' % p for p in primes[k:k + 10]]) for k in xrange(0, len(primes), 10)])
     print
 
 
