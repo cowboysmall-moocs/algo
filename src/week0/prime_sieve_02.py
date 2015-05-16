@@ -17,8 +17,8 @@ def main(argv):
 
 
     print
-    print'    Total primes between 2 and %s: %s' % (maximum, count)
-    print'Total composites between 2 and %s: %s' % (maximum, maximum - 1 - count)
+    print '    Total primes between 2 and %s: %s' % (maximum, count)
+    print 'Total composites between 2 and %s: %s' % (maximum, maximum - 1 - count)
     print
     print '\n'.join([', '.join(['%4s' % p for p in primes[k:k + 10]]) for k in xrange(0, len(primes), 10)])
     print

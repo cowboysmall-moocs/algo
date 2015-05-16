@@ -4,7 +4,7 @@ import os.path
 from week5.dijkstra import construct_graph, dijkstra_shortest_paths
 
 
-FILE_1 = os.path.join(os.path.dirname(__file__), '../data/dijkstra_data.txt')
+FILE_1 = os.path.join(os.path.dirname(__file__), '../data/week5/dijkstra_data.txt')
 
 
 class TestDijkstra(unittest.TestCase):

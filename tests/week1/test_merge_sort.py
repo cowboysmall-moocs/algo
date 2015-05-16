@@ -4,12 +4,12 @@ import random
 
 from week1.merge_sort import MergeSort
 
-FILE_1 = os.path.join(os.path.dirname(__file__), '../data/integer_array_1.txt')
-FILE_2 = os.path.join(os.path.dirname(__file__), '../data/integer_array_2.txt')
-FILE_3 = os.path.join(os.path.dirname(__file__), '../data/integer_array_3.txt')
-FILE_4 = os.path.join(os.path.dirname(__file__), '../data/integer_array_4.txt')
-FILE_5 = os.path.join(os.path.dirname(__file__), '../data/integer_array_5.txt')
-FILE_6 = os.path.join(os.path.dirname(__file__), '../data/integer_array_6.txt')
+FILE_1 = os.path.join(os.path.dirname(__file__), '../data/week1/integer_array_1.txt')
+FILE_2 = os.path.join(os.path.dirname(__file__), '../data/week1/integer_array_2.txt')
+FILE_3 = os.path.join(os.path.dirname(__file__), '../data/week1/integer_array_3.txt')
+FILE_4 = os.path.join(os.path.dirname(__file__), '../data/week1/integer_array_4.txt')
+FILE_5 = os.path.join(os.path.dirname(__file__), '../data/week1/integer_array_5.txt')
+FILE_6 = os.path.join(os.path.dirname(__file__), '../data/week1/integer_array_6.txt')
 
 
 class TestMergeSort(unittest.TestCase):

@@ -4,7 +4,7 @@ class QuickFind:
     
     def __init__(self, length):
         self.length = length
-        self.array  = [i for i in range(length)]
+        self.array  = [i for i in xrange(length)]
 
     def __str__(self):
         return " ".join([str(element) for element in self.array])
@@ -15,9 +15,10 @@ class QuickFind:
     def union(self, p, q):
         pid = self.array[p]
         qid = self.array[q]
-        for i in range(self.length):
-            if self.array[i] == pid:
-                self.array[i] = qid
+        if pid != qid:
+            for i in xrange(self.length):
+                if self.array[i] == pid:
+                    self.array[i] = qid
 
     def get_array(self):
         return self.array
@@ -27,7 +28,7 @@ class QuickUnion:
     
     def __init__(self, length):
         self.length = length
-        self.array  = [i for i in range(length)]
+        self.array  = [i for i in xrange(length)]
 
     def __str__(self):
         return " ".join([str(element) for element in self.array])
@@ -53,8 +54,8 @@ class WeightedQuickUnion:
     
     def __init__(self, length):
         self.length = length
-        self.array  = [i for i in range(length)]
-        self.sizes  = [1 for _ in range(length)]
+        self.array  = [i for i in xrange(length)]
+        self.sizes  = [1 for _ in xrange(length)]
 
     def __str__(self):
         return " ".join([str(element) for element in self.array])

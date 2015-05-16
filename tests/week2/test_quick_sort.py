@@ -3,10 +3,10 @@ import os.path
 
 from week2.quick_sort import QuickSort, QuickSortPivotLast, QuickSortPivotMOT
 
-FILE_1 = os.path.join(os.path.dirname(__file__), '../data/unsorted_list.txt')
-FILE_2 = os.path.join(os.path.dirname(__file__), '../data/unsorted_list_10.txt')
-FILE_3 = os.path.join(os.path.dirname(__file__), '../data/unsorted_list_100.txt')
-FILE_4 = os.path.join(os.path.dirname(__file__), '../data/unsorted_list_1000.txt')
+FILE_1 = os.path.join(os.path.dirname(__file__), '../data/week2/unsorted_list.txt')
+FILE_2 = os.path.join(os.path.dirname(__file__), '../data/week2/unsorted_list_10.txt')
+FILE_3 = os.path.join(os.path.dirname(__file__), '../data/week2/unsorted_list_100.txt')
+FILE_4 = os.path.join(os.path.dirname(__file__), '../data/week2/unsorted_list_1000.txt')
 
 
 class TestQuickSort(unittest.TestCase):

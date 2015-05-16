@@ -7,8 +7,8 @@ def construct_array(file_path):
 
 
 def max_subsequence(array):
-    maximum = 0
     current = 0
+    maximum = 0
 
     for x in array:
         current = max(0, current + x)
